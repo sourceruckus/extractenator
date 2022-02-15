@@ -1,0 +1,15 @@
+Package: extractenator
+Version: __version__
+Section: utils
+Priority: optional
+Architecture: __arch__
+Installed-Size: __size__
+Depends: bash, mailx
+Replaces: ruckusrd (<< 0.18.0-1)
+#Breaks: ruckusrd (<< 0.18.0-1)
+Maintainer: Michael D Labriola <veggiemike@sourceruckus.org>
+Homepage: https://github.com/sourceruckus/extractenator
+Description: Extractenator - a spicy self-extracting installer creator
+ Extractenator is a utility for creating compressed, self extracting
+ executables that run an embedded install script after extracting to a
+ temp directory.

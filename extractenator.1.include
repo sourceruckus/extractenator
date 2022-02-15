@@ -1,0 +1,7 @@
+[files]
+.TP
+.I /etc/extractenator.conf
+System-wide default config file.
+.TP
+.I ~/.extractenator.conf
+User config file, which is read last.
