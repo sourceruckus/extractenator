@@ -12,15 +12,31 @@ temp directory.
 Get the latest and greatest from https://github.com/sourceruckus/extractenator.
 
 <pre>
-usage: doit OPTIONS CMD...
+usage: extractenator OPTIONS PAYLOAD...
 
-  -f, --filename LOGFILE    Specify output filename.  Both stdout and stderr
-                            will be redirected to this file.  When the process
-                            finishes, the files last few lines will contain
-                            "DOIT: ALL DONE", a return code, and timing stats.
+  -f, --filename EXEFILE    Specify output filename. (REQUIRED)
 
-  -m, --mail EMAILADDRESS   Email stdout/stderr to specified address instead
-                            of logging to a file.
+  -e, --exclude PATTERN     Exclude files in PAYLOAD that match PATTERN,
+                            a glob(3)-style wildcard pattern.  Can be
+                            specified multiple times.
 
-  -V, --version             Show version string and exit.
+  -s, --script SCRIPT       Specify installation script to be run after
+                            extraction.  SCRIPT will be included as archive
+                            content, you don't have to also specify it as
+                            payload. (REQUIRED)
+
+  -c, --compressor COMP     Use COMP compressor in pipeline during archive
+                            creation.  Valid compressors are 'gzip', 'bzip2',
+                            'xz', 'zstd', or 'none'.  Default is 'zstd' w/
+                            --compressor-args of -T0 -10.  If COMP is specified
+                            as 'none', no compressor is used (e.g., if payload
+                            files are already compressed).
+
+  -C, --compressor-args ARGS  Pass ARGS into the specified compressor.  If
+                              --compressor was specified, defaults to empty
+                              string.  Otherwise, default is '-T0 -10' to go
+                              along with the default zstd compressor.  Can be
+                              provided multiple times, causing argurments to be
+                              appended (i.e., becaue you cannot have spaces in
+                              ARGS).
 </pre>
