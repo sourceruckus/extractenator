@@ -10,14 +10,31 @@
 # an install script after extracting to a temp directory.
 
 
+# assume we're in the source tree if $PWD/doit.sh.in exists
+if [ -f $(dirname $0)/extractenator.sh.in ]; then
+    LIBDIR=$(realpath $(dirname $0))
+    CONFDIR=$LIBDIR
+else
+    LIBDIR=__LIBDIR__
+    CONFDIR=__CONFDIR__
+fi
+. $LIBDIR/extractenator.sh
+[ -f $CONFDIR/extractenator.conf ] && . $CONFDIR/extractenator.conf
+[ -f ~/.extractenator.conf ] && . ~/.extractenator.conf
+
+
 usage()
 {
     if [ -n "$*" ]; then
         echo ERROR: $*
         echo
     fi
-    echo "Extractenator - a spicy self-extracting installer creator"
+    echo "Extractenator - a spicy self-extracting installer creator."
     echo "Copyright (C) 2018-2022 Michael D Labriola <veggiemike@sourceruckus.org>"
+    echo
+    echo "Extractenator is a utility for creating compressed, self extracting"
+    echo "executables that run an embedded install script after extracting to a"
+    echo "temp directory."
     echo
     echo "usage: `basename $0` OPTIONS PAYLOAD..."
     echo
@@ -46,6 +63,8 @@ usage()
     echo "                              provided multiple times, causing argurments to be"
     echo "                              appended (i.e., becaue you cannot have spaces in"
     echo "                              ARGS)."
+    echo
+    echo "  -V, --version             Show version string and exit."
     # NOTE: Here's the last round of compressor benchmarking I did on a Ryzen 7
     #       2700X (8 cores/16 threads).  I beleive these were sizes and times
     #       for running kernel_tar on a 5.4 kernel I had built.
@@ -110,8 +129,8 @@ usage()
 #       current positional arguments (e.g, $1, $2).
 #
 __opts=$(getopt -un $(basename $0) \
-    -o hf:e:s:c:C: \
-    --long help,filename:,exclude:,script:,compressor:,compressor-args: -- $@)
+    -o hvf:e:s:c:C: \
+    --long help,version,filename:,exclude:,script:,compressor:,compressor-args: -- $@)
 if [ $? != 0 ]; then
     echo
     usage
@@ -128,6 +147,10 @@ tarflags=
 # parse the new positional arguments
 while true; do
     case "$1" in
+        -V|--version)
+            echo "Extractenator $VERSION"
+            exit 0
+            ;;
         -f|--filename)
             filename=$2
             shift 2

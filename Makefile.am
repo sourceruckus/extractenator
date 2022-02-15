@@ -8,7 +8,7 @@ EXTRA_DIST =
 EXTRA_DIST += $(top_docs)
 EXTRA_DIST += $(deb_examples)
 
-man1_MANS = doit.1
+man1_MANS = extractenator.1
 
 install-data-local:
 	$(MKDIR_P) $(DESTDIR)$(docdir)/debian
@@ -19,8 +19,8 @@ uninstall-local:
 	rm -f $(top_docs:%=$(DESTDIR)$(docdir)/%)
 	rm -f $(deb_examples:%=$(DESTDIR)$(docdir)/%)
 
-doit.1: config.log ./src/doit doit.1.include
-	help2man -o $@ --no-info --include doit.1.include ./src/doit
+extractenator.1: config.log ./src/extractenator extractenator.1.include
+	help2man -o $@ --no-info --include extractenator.1.include ./src/extractenator
 
 
 # i know this isn't the right way to do this... but it's how i've been

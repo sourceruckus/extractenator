@@ -39,4 +39,6 @@ usage: extractenator OPTIONS PAYLOAD...
                               provided multiple times, causing argurments to be
                               appended (i.e., becaue you cannot have spaces in
                               ARGS).
+
+  -V, --version             Show version string and exit.
 </pre>
