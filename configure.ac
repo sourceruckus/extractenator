@@ -3,7 +3,7 @@ AC_PREREQ([2.65])
 m4_define(extractenator_major_version, 1)
 m4_define(extractenator_minor_version, 0)
 m4_define(extractenator_micro_version, 0)
-m4_define(extractenator_devtag, [dev])
+m4_define(extractenator_devtag, [rc1])
 m4_ifnblank(extractenator_devtag,
 	[m4_define(extractenator_version, extractenator_major_version.extractenator_minor_version.extractenator_micro_version-extractenator_devtag)],
 	[m4_define(extractenator_version, extractenator_major_version.extractenator_minor_version.extractenator_micro_version)])
