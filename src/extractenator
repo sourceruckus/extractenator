@@ -139,10 +139,14 @@ fi
 set -- $__opts
 
 # defaults
-comp="zstd"
-decomp="zstdcat"
-compargs="-T0 -10"
+if [ -n "$DEFAULT_COMPRESSOR" ]; then
+    compressor=$DEFAULT_COMPRESSOR
+else
+    compressor="zstd"
+fi
 tarflags=
+
+
 
 # parse the new positional arguments
 while true; do
@@ -164,37 +168,17 @@ while true; do
             shift 2
             ;;
 	-c|--compressor)
-            compargs=
-            case $2 in
-                gzip)
-                    comp="gzip"
-                    decomp="zcat"
-                    ;;
-                bzip2)
-                    comp="bzip2"
-                    decomp="bzcat"
-                    ;;
-                xz)
-                    comp="xz"
-                    decomp="xzcat"
-                    ;;
-                zstd)
-                    comp="zstd"
-                    decomp="zstdcat"
-                    ;;
-                none)
-                    comp="cat"
-                    decomp="cat"
-                    ;;
-                *)
-                    usage "invalid compressor specified: $2"
-                    exit 1
-                    ;;
-            esac
+            compressor=$2
             shift 2
             ;;
         -C|--compressor-args)
-            compargs+=" $2"
+            # empty compargs if this is the first -C arg
+            if [ -z "$compargs_set" ]; then
+                compargs=$2
+                compargs_set=y
+            else
+                compargs+=" $2"
+            fi
             shift 2
             ;;
 	--)
@@ -221,6 +205,30 @@ if [ -z "$script" ]; then
 fi
 if [ -z "$payload" ]; then
     usage "PAYLOAD required"
+    exit 1
+fi
+
+# figure out compressor settings
+#
+# FIXME: this is working, but doesn't match previous behavior or the usage
+#        message
+#
+__comp=\$${compressor^^}_COMP
+comp=`eval echo $__comp`
+if [ -z "$compargs_set" ]; then
+    __compargs=\$${compressor^^}_COMP_ARGS
+    compargs=`eval echo $__compargs`
+fi
+__decomp=\$${compressor^^}_DECOMP
+decomp=`eval echo $__decomp`
+# make sure supplied compressor has settings in config file
+if [ -z "$comp" -o -z "$decomp" ]; then
+    usage "invalid compressor specified: $compressor - not in config file"
+    exit 1
+fi
+# make sure system actually has configured compressor available
+if [ ! -x "`which $comp`" -o ! -x "`which $decomp`" ]; then
+    usage "specificed compressor missing utilities: $compressor"
     exit 1
 fi
 

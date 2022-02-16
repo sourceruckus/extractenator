@@ -4,7 +4,7 @@ Section: utils
 Priority: optional
 Architecture: __arch__
 Installed-Size: __size__
-Depends: bash, mailx
+Depends: bash, debianutils
 Replaces: ruckusrd (<< 0.18.0-1)
 #Breaks: ruckusrd (<< 0.18.0-1)
 Maintainer: Michael D Labriola <veggiemike@sourceruckus.org>

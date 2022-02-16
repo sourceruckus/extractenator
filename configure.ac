@@ -48,6 +48,7 @@ AC_DEFUN([NEEDED_PROGS],
 	  help2man
 	  dnl needed at run-time
 	  bash
+	  which
 	 ])
 
 m4_foreach_w([P], NEEDED_PROGS,
