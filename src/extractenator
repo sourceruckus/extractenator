@@ -50,19 +50,15 @@ usage()
     echo "                            payload. (REQUIRED)"
     echo
     echo "  -c, --compressor COMP     Use COMP compressor in pipeline during archive"
-    echo "                            creation.  Valid compressors are 'gzip', 'bzip2',"
-    echo "                            'xz', 'zstd', or 'none'.  Default is 'zstd' w/"
-    echo "                            --compressor-args of -T0 -10.  If COMP is specified"
-    echo "                            as 'none', no compressor is used (e.g., if payload"
-    echo "                            files are already compressed)."
+    echo "                            creation.  See extracenator.conf for details on"
+    echo "                            valid compressors and defaults."
     echo
     echo "  -C, --compressor-args ARGS  Pass ARGS into the specified compressor.  If"
-    echo "                              --compressor was specified, defaults to empty"
-    echo "                              string.  Otherwise, default is '-T0 -10' to go"
-    echo "                              along with the default zstd compressor.  Can be"
-    echo "                              provided multiple times, causing argurments to be"
-    echo "                              appended (i.e., becaue you cannot have spaces in"
-    echo "                              ARGS)."
+    echo "                              --compressor was specified, defaults to the"
+    echo "                              matching COMP_ARGS variable in extractenator.conf."
+    echo "                              Can be provided multiple times, causing argurments"
+    echo "                              to be appended (i.e., becaue you cannot have"
+    echo "                              spaces in ARGS)."
     echo
     echo "  -V, --version             Show version string and exit."
     # NOTE: Here's the last round of compressor benchmarking I did on a Ryzen 7
@@ -209,10 +205,6 @@ if [ -z "$payload" ]; then
 fi
 
 # figure out compressor settings
-#
-# FIXME: this is working, but doesn't match previous behavior or the usage
-#        message
-#
 __comp=\$${compressor^^}_COMP
 comp=`eval echo $__comp`
 if [ -z "$compargs_set" ]; then

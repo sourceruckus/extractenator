@@ -1,5 +1,5 @@
 Extractenator - a spicy self-extracting installer creator
-====================================
+=========================================================
 
 Copyright 2018-2022 Michael D Labriola <veggiemike@sourceruckus.org>
 
@@ -26,19 +26,15 @@ usage: extractenator OPTIONS PAYLOAD...
                             payload. (REQUIRED)
 
   -c, --compressor COMP     Use COMP compressor in pipeline during archive
-                            creation.  Valid compressors are 'gzip', 'bzip2',
-                            'xz', 'zstd', or 'none'.  Default is 'zstd' w/
-                            --compressor-args of -T0 -10.  If COMP is specified
-                            as 'none', no compressor is used (e.g., if payload
-                            files are already compressed).
+                            creation.  See extracenator.conf for details on
+                            valid compressors and defaults.
 
   -C, --compressor-args ARGS  Pass ARGS into the specified compressor.  If
-                              --compressor was specified, defaults to empty
-                              string.  Otherwise, default is '-T0 -10' to go
-                              along with the default zstd compressor.  Can be
-                              provided multiple times, causing argurments to be
-                              appended (i.e., becaue you cannot have spaces in
-                              ARGS).
+                              --compressor was specified, defaults to the
+                              matching COMP_ARGS variable in extractenator.conf.
+                              Can be provided multiple times, causing argurments
+                              to be appended (i.e., becaue you cannot have
+                              spaces in ARGS).
 
   -V, --version             Show version string and exit.
 </pre>
