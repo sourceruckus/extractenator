@@ -5,14 +5,17 @@ Copyright 2018-2022 Michael D Labriola <veggiemike@sourceruckus.org>
 
 Licensed under the GPLv3. See the file COPYING for details. 
 
-Extractenator is a utility for creating compressed, self extracting
-executables that run an embedded install script after extracting to a
-temp directory.
+Extractenator is a utility for creating compressed, self extracting executables
+that run an embedded install script after extracting to a temp directory.
 
 Get the latest and greatest from https://github.com/sourceruckus/extractenator.
 
 <pre>
 usage: extractenator OPTIONS PAYLOAD...
+
+  -h, --help                Show this help message and exit.
+
+  -V, --version             Show version string and exit.
 
   -f, --filename EXEFILE    Specify output filename. (REQUIRED)
 
@@ -35,6 +38,4 @@ usage: extractenator OPTIONS PAYLOAD...
                               Can be provided multiple times, causing argurments
                               to be appended (i.e., becaue you cannot have
                               spaces in ARGS).
-
-  -V, --version             Show version string and exit.
 </pre>

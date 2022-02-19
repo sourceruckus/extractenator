@@ -10,7 +10,7 @@
 # an install script after extracting to a temp directory.
 
 
-# assume we're in the source tree if $PWD/doit.sh.in exists
+# assume we're in the source tree if $PWD/extractenator.sh.in exists
 if [ -f $(dirname $0)/extractenator.sh.in ]; then
     LIBDIR=$(realpath $(dirname $0))
     CONFDIR=$LIBDIR
@@ -38,6 +38,10 @@ usage()
     echo
     echo "usage: `basename $0` OPTIONS PAYLOAD..."
     echo
+    echo "  -h, --help                Show this help message and exit."
+    echo
+    echo "  -V, --version             Show version string and exit."
+    echo
     echo "  -f, --filename EXEFILE    Specify output filename. (REQUIRED)"
     echo
     echo "  -e, --exclude PATTERN     Exclude files in PAYLOAD that match PATTERN,"
@@ -59,8 +63,6 @@ usage()
     echo "                              Can be provided multiple times, causing argurments"
     echo "                              to be appended (i.e., becaue you cannot have"
     echo "                              spaces in ARGS)."
-    echo
-    echo "  -V, --version             Show version string and exit."
     # NOTE: Here's the last round of compressor benchmarking I did on a Ryzen 7
     #       2700X (8 cores/16 threads).  I beleive these were sizes and times
     #       for running kernel_tar on a 5.4 kernel I had built.
