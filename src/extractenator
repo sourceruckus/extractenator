@@ -125,7 +125,7 @@ usage()
 #       current positional arguments (e.g, $1, $2).
 #
 __opts=$(getopt -un $(basename $0) \
-    -o hvf:e:s:c:C: \
+    -o hVf:e:s:c:C: \
     --long help,version,filename:,exclude:,script:,compressor:,compressor-args: -- $@)
 if [ $? != 0 ]; then
     echo
