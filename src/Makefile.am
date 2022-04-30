@@ -1,8 +1,8 @@
 dist_bin_SCRIPTS =
 dist_bin_SCRIPTS += extractenator
 
-sysconf_DATA =
-sysconf_DATA += extractenator.conf
+dist_sysconf_DATA =
+dist_sysconf_DATA += extractenator.conf
 
 pkgdata_DATA =
 pkgdata_DATA += extractenator.sh

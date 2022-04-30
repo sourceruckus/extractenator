@@ -7,6 +7,7 @@ deb_examples = debian/control debian/get_deps
 EXTRA_DIST =
 EXTRA_DIST += $(top_docs)
 EXTRA_DIST += $(deb_examples)
+EXTRA_DIST += extractenator.1.include
 
 man1_MANS = extractenator.1
 
@@ -19,8 +20,11 @@ uninstall-local:
 	rm -f $(top_docs:%=$(DESTDIR)$(docdir)/%)
 	rm -f $(deb_examples:%=$(DESTDIR)$(docdir)/%)
 
-extractenator.1: config.log ./src/extractenator extractenator.1.include
-	help2man -o $@ --no-info --include extractenator.1.include ./src/extractenator
+distclean-local:
+	rm -f $(builddir)/extractenator.1
+
+extractenator.1: $(srcdir)/src/extractenator config.log $(srcdir)/extractenator.1.include
+	help2man -o $@ --no-info --include $(srcdir)/extractenator.1.include $<
 
 
 # i know this isn't the right way to do this... but it's how i've been
