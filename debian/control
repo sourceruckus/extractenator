@@ -7,7 +7,7 @@ Installed-Size: __size__
 Depends: bash, debianutils
 Recommends: gzip, bzip2, xz-utils, zstd
 Replaces: ruckusrd (<< 0.18.0-1)
-#Breaks: ruckusrd (<< 0.18.0-1)
+Breaks: ruckusrd (<< 0.18.0-1)
 Maintainer: Michael D Labriola <veggiemike@sourceruckus.org>
 Homepage: https://github.com/sourceruckus/extractenator
 Description: Extractenator - a spicy self-extracting installer creator
